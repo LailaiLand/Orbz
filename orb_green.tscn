@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cek4swsdbynht"]
+
+[ext_resource type="Texture2D" uid="uid://bwcqrxqo4fswv" path="res://Art/PNG/OrbGreen.png" id="1_qq57s"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5xkl4"]
+radius = 67.0
+
+[node name="OrbGreen" type="RigidBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_qq57s")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_5xkl4")

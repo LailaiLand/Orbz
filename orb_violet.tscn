@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://bjct3m3rr60ve"]
+
+[ext_resource type="Texture2D" uid="uid://c6qsgc8itsgxl" path="res://Art/PNG/OrbViolet.png" id="1_g61fb"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_y6kgr"]
+radius = 125.0
+
+[node name="OrbViolet" type="RigidBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_g61fb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_y6kgr")
