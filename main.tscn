@@ -1,0 +1,64 @@
+[gd_scene load_steps=2 format=3 uid="uid://b2m6eefp6hlb1"]
+
+[ext_resource type="PackedScene" uid="uid://gxpf67fi4v1u" path="res://orb_red.tscn" id="1_t3kjl"]
+
+[node name="Main" type="Node2D"]
+
+[node name="Canvas" type="CanvasLayer" parent="."]
+layer = 0
+
+[node name="Background" type="ColorRect" parent="Canvas"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0.666667, 0.733333, 1)
+
+[node name="Box" type="StaticBody2D" parent="Canvas"]
+position = Vector2(-64, -16)
+
+[node name="ColorRect" type="ColorRect" parent="Canvas/Box"]
+offset_left = 320.0
+offset_top = 128.0
+offset_right = 336.0
+offset_bottom = 640.0
+color = Color(0.666667, 1, 0.933333, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="Canvas/Box"]
+offset_left = 320.0
+offset_top = 624.0
+offset_right = 896.0
+offset_bottom = 640.0
+color = Color(0.666667, 1, 0.933333, 1)
+
+[node name="ColorRect3" type="ColorRect" parent="Canvas/Box"]
+offset_left = 880.0
+offset_top = 128.0
+offset_right = 896.0
+offset_bottom = 640.0
+color = Color(0.666667, 1, 0.933333, 1)
+
+[node name="BoxCollisionShape" type="CollisionPolygon2D" parent="Canvas/Box"]
+polygon = PackedVector2Array(320, 128, 320, 640, 896, 640, 896, 128, 880, 128, 880, 624, 336, 624, 336, 128)
+
+[node name="OrbRed" parent="Canvas" instance=ExtResource("1_t3kjl")]
+position = Vector2(432, 40)
+
+[node name="OrbRed2" parent="Canvas" instance=ExtResource("1_t3kjl")]
+position = Vector2(528, 40)
+
+[node name="OrbRed3" parent="Canvas" instance=ExtResource("1_t3kjl")]
+position = Vector2(624, 40)
+
+[node name="OrbRed4" parent="Canvas" instance=ExtResource("1_t3kjl")]
+position = Vector2(704, 40)
+
+[node name="OrbRed5" parent="Canvas" instance=ExtResource("1_t3kjl")]
+position = Vector2(644, 88)
+
+[node name="OrbRed6" parent="Canvas" instance=ExtResource("1_t3kjl")]
+position = Vector2(684, 88)
+
+[node name="OrbRed7" parent="Canvas" instance=ExtResource("1_t3kjl")]
+position = Vector2(664, 128)
