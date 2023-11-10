@@ -6,6 +6,7 @@
 radius = 95.0474
 
 [node name="OrbIndigo" type="RigidBody2D"]
+contact_monitor = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_tnhim")
