@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://dc0pv4ic6ybm7" path="res://orb_pride.tscn" id="7_htpm1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mc8c1"]
-size = Vector2(16, 112)
+size = Vector2(17.5, 99)
 
 [node name="Main" type="Node2D"]
 
@@ -70,12 +70,14 @@ position = Vector2(1005, 128)
 position = Vector2(264, 56)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GameBoard/StopLeft"]
+position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_mc8c1")
 
 [node name="StopRight" type="Area2D" parent="GameBoard"]
 position = Vector2(824, 56)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GameBoard/StopRight"]
+position = Vector2(-0.25, -0.5)
 shape = SubResource("RectangleShape2D_mc8c1")
 
 [node name="Label" type="Label" parent="GameBoard"]
@@ -85,3 +87,11 @@ offset_right = 1041.0
 offset_bottom = 66.0
 text = "Next orb:"
 horizontal_alignment = 1
+
+[node name="DropTimer" type="Timer" parent="GameBoard"]
+one_shot = true
+
+[connection signal="body_entered" from="GameBoard/StopLeft" to="GameBoard" method="_on_stop_left_body_entered"]
+[connection signal="body_exited" from="GameBoard/StopLeft" to="GameBoard" method="_on_stop_left_body_exited"]
+[connection signal="body_entered" from="GameBoard/StopRight" to="GameBoard" method="_on_stop_right_body_entered"]
+[connection signal="body_exited" from="GameBoard/StopRight" to="GameBoard" method="_on_stop_right_body_exited"]

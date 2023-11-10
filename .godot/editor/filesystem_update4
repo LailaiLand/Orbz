@@ -1,3 +1,4 @@
+res://GameBoard.gd
 res://main.tscn
 res://orb_red.tscn
 res://orb_orange.tscn
@@ -6,4 +7,3 @@ res://orb_green.tscn
 res://orb_indigo.tscn
 res://orb_violet.tscn
 res://orb_pride.tscn
-res://GameBoard.gd
