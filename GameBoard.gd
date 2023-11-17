@@ -42,21 +42,7 @@ func new_orb():
 	next_orb.movable = true
 	random_next_orb()
 
+
+
 func _on_stop_left_body_entered(body):
-	body.stop_left = true
-	print(body.name)
-
-
-func _on_stop_left_body_exited(body):
-	body.stop_left = false
-	print(body.name)
-
-
-func _on_stop_right_body_entered(body):
-	body.stop_right = true
-	print(body.name)
-
-
-func _on_stop_right_body_exited(body):
-	body.stop_right = false
 	print(body.name)

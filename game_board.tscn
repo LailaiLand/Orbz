@@ -1,0 +1,85 @@
+[gd_scene load_steps=10 format=3 uid="uid://c0lnmqnryw0yu"]
+
+[ext_resource type="Script" path="res://GameBoard.gd" id="1_52xhi"]
+[ext_resource type="PackedScene" uid="uid://gxpf67fi4v1u" path="res://orb_red.tscn" id="2_dal3a"]
+[ext_resource type="PackedScene" uid="uid://pchpvc6oi1lh" path="res://orb_orange.tscn" id="3_cwtbx"]
+[ext_resource type="PackedScene" uid="uid://byoc6x5rbit8e" path="res://orb_yellow.tscn" id="4_15g41"]
+[ext_resource type="PackedScene" uid="uid://cek4swsdbynht" path="res://orb_green.tscn" id="5_iplkc"]
+[ext_resource type="PackedScene" uid="uid://dw70p86jt1okb" path="res://orb_indigo.tscn" id="6_gli5h"]
+[ext_resource type="PackedScene" uid="uid://bjct3m3rr60ve" path="res://orb_violet.tscn" id="7_xxegl"]
+[ext_resource type="PackedScene" uid="uid://dc0pv4ic6ybm7" path="res://orb_pride.tscn" id="8_ty5k7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_40rh3"]
+size = Vector2(20, 111)
+
+[node name="GameBoard" type="CanvasLayer"]
+layer = 0
+script = ExtResource("1_52xhi")
+red_orb_scene = ExtResource("2_dal3a")
+orange_orb_scene = ExtResource("3_cwtbx")
+yellow_orb_scene = ExtResource("4_15g41")
+green_orb_scene = ExtResource("5_iplkc")
+indigo_orb_scene = ExtResource("6_gli5h")
+violet_orb_scene = ExtResource("7_xxegl")
+pride_orb_scene = ExtResource("8_ty5k7")
+
+[node name="Background" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0.666667, 0.733333, 1)
+
+[node name="Box" type="StaticBody2D" parent="."]
+position = Vector2(-64, -16)
+
+[node name="ColorRect" type="ColorRect" parent="Box"]
+offset_left = 320.0
+offset_top = 128.0
+offset_right = 336.0
+offset_bottom = 640.0
+color = Color(0.666667, 1, 0.933333, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="Box"]
+offset_left = 320.0
+offset_top = 624.0
+offset_right = 896.0
+offset_bottom = 640.0
+color = Color(0.666667, 1, 0.933333, 1)
+
+[node name="ColorRect3" type="ColorRect" parent="Box"]
+offset_left = 880.0
+offset_top = 128.0
+offset_right = 896.0
+offset_bottom = 640.0
+color = Color(0.666667, 1, 0.933333, 1)
+
+[node name="BoxCollisionShape" type="CollisionPolygon2D" parent="Box"]
+polygon = PackedVector2Array(320, 128, 320, 640, 896, 640, 896, 128, 880, 128, 880, 624, 336, 624, 336, 128)
+
+[node name="PlacementMarker" type="Marker2D" parent="."]
+position = Vector2(512, 56)
+
+[node name="NextMarker" type="Marker2D" parent="."]
+position = Vector2(1005, 128)
+
+[node name="Label" type="Label" parent="."]
+offset_left = 968.0
+offset_top = 40.0
+offset_right = 1041.0
+offset_bottom = 66.0
+text = "Next orb:"
+horizontal_alignment = 1
+
+[node name="DropTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="StopLeft" type="Area2D" parent="."]
+position = Vector2(262, 56)
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StopLeft"]
+shape = SubResource("RectangleShape2D_40rh3")
+
+[connection signal="body_entered" from="StopLeft" to="." method="_on_stop_left_body_entered"]
