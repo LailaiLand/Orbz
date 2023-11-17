@@ -82,4 +82,5 @@ collision_layer = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StopLeft"]
 shape = SubResource("RectangleShape2D_40rh3")
 
+[connection signal="timeout" from="DropTimer" to="." method="_on_drop_timer_timeout"]
 [connection signal="body_entered" from="StopLeft" to="." method="_on_stop_left_body_entered"]

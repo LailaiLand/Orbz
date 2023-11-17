@@ -6,8 +6,9 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_5v4f1"]
 radius = 30.0666
 
-[node name="OrbOrange" type="RigidBody2D"]
+[node name="OrbOrange" type="RigidBody2D" groups=["orange", "orbs"]]
 contact_monitor = true
+can_sleep = false
 script = ExtResource("1_6bpc6")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

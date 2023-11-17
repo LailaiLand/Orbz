@@ -5,8 +5,9 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_y6kgr"]
 radius = 125.0
 
-[node name="OrbViolet" type="RigidBody2D"]
+[node name="OrbViolet" type="RigidBody2D" groups=["orbs", "violet"]]
 contact_monitor = true
+can_sleep = false
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_g61fb")

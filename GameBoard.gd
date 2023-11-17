@@ -9,20 +9,18 @@ extends CanvasLayer
 @export var pride_orb_scene: PackedScene
 
 
-var next_orb
-
 func _ready():
 	var start_orb = red_orb_scene.instantiate()
 	start_orb.position = $PlacementMarker.position
 	start_orb.gravity_scale = 0
 	add_child(start_orb)
 	start_orb.movable = true
-	next_orb = random_next_orb()
+	_random_next_orb()
 
 #func _process(delta):
 	#TODO: make drop function
 
-func random_next_orb():
+func _random_next_orb():
 	var random_num = randi_range(1, 3)
 	var temp_next
 	if random_num == 1:
@@ -33,16 +31,42 @@ func random_next_orb():
 		temp_next = yellow_orb_scene.instantiate()
 	temp_next.position = $NextMarker.position
 	temp_next.gravity_scale = 0
-	add_child(temp_next)
 	temp_next.movable = false
-	return temp_next
+	temp_next.is_next = true
+	add_child(temp_next)
 
-func new_orb():
-	next_orb.position = $PlacementMarker.position
-	next_orb.movable = true
-	random_next_orb()
+func _new_orb():
+	for orb in get_children():
+		if orb.is_in_group("orbs"):
+			if orb.is_next == true:
+				_spawn_new_orb(orb)
+				orb.queue_free()
+			else:
+				continue
+		else:
+			continue
+		
+	_random_next_orb()
 
+func _on_orb_dropped():
+	$DropTimer.start()
 
+func _spawn_new_orb(orb_name):
+	var orb_spawn
+	if orb_name.is_in_group("red"):
+		orb_spawn = red_orb_scene.instantiate()
+	elif orb_name.is_in_group("orange"):
+		orb_spawn = orange_orb_scene.instantiate()
+	elif orb_name.is_in_group("yellow"):
+		orb_spawn = yellow_orb_scene.instantiate()
+	orb_spawn.position = $PlacementMarker.position
+	orb_spawn.movable = true
+	orb_spawn.gravity_scale = 0
+	add_child(orb_spawn)
 
 func _on_stop_left_body_entered(body):
-	print(body.name)
+	body.stop_left = true
+
+
+func _on_drop_timer_timeout():
+	_new_orb()
