@@ -1,13 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://cek4swsdbynht"]
+[gd_scene load_steps=4 format=3 uid="uid://cek4swsdbynht"]
 
+[ext_resource type="Script" path="res://orb.gd" id="1_0858y"]
 [ext_resource type="Texture2D" uid="uid://bwcqrxqo4fswv" path="res://Art/PNG/OrbGreen.png" id="1_qq57s"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5xkl4"]
 radius = 67.0
 
 [node name="OrbGreen" type="RigidBody2D" groups=["green", "orbs"]]
+max_contacts_reported = 6
 contact_monitor = true
 can_sleep = false
+script = ExtResource("1_0858y")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_qq57s")

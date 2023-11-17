@@ -1,13 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://dw70p86jt1okb"]
+[gd_scene load_steps=4 format=3 uid="uid://dw70p86jt1okb"]
 
+[ext_resource type="Script" path="res://orb.gd" id="1_5ip8b"]
 [ext_resource type="Texture2D" uid="uid://dg67h8uepjtsl" path="res://Art/PNG/OrbIndigo.png" id="1_tnhim"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1kswt"]
 radius = 95.0474
 
 [node name="OrbIndigo" type="RigidBody2D" groups=["indigo", "orbs"]]
+max_contacts_reported = 6
 contact_monitor = true
 can_sleep = false
+script = ExtResource("1_5ip8b")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_tnhim")

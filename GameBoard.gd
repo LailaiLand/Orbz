@@ -48,8 +48,6 @@ func _new_orb():
 		
 	_random_next_orb()
 
-func _on_orb_dropped():
-	$DropTimer.start()
 
 func _spawn_new_orb(orb_name):
 	var orb_spawn
@@ -63,6 +61,28 @@ func _spawn_new_orb(orb_name):
 	orb_spawn.movable = true
 	orb_spawn.gravity_scale = 0
 	add_child(orb_spawn)
+
+func _on_orb_dropped():
+	$DropTimer.start()
+
+func _on_orb_combination(colour, orb1, orb2):
+	var combined_orb
+	if colour == "orange":
+		combined_orb = orange_orb_scene.instantiate()
+	elif colour == "yellow":
+		combined_orb = yellow_orb_scene.instantiate()
+	elif colour == "green":
+		combined_orb = green_orb_scene.instantiate()
+	elif colour == "indigo":
+		combined_orb = indigo_orb_scene.instantiate()
+	elif colour == "violet":
+		combined_orb = violet_orb_scene.instantiate()
+	elif colour == "pride":
+		combined_orb = pride_orb_scene.instantiate()
+	combined_orb.position = orb1.position
+	remove_child(orb1)
+	remove_child(orb2)
+	add_child(combined_orb)
 
 func _on_stop_left_body_entered(body):
 	body.stop_left = true
