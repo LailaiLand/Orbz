@@ -64,12 +64,28 @@ position = Vector2(512, 56)
 [node name="NextMarker" type="Marker2D" parent="."]
 position = Vector2(1005, 128)
 
-[node name="Label" type="Label" parent="."]
+[node name="NextLabel" type="Label" parent="."]
 offset_left = 968.0
 offset_top = 40.0
 offset_right = 1041.0
 offset_bottom = 66.0
 text = "Next orb:"
+horizontal_alignment = 1
+
+[node name="RoundMessageLabel" type="Label" parent="."]
+offset_left = 80.0
+offset_top = 40.0
+offset_right = 153.0
+offset_bottom = 66.0
+text = "Round:"
+horizontal_alignment = 1
+
+[node name="RoundNumberLabel" type="Label" parent="."]
+offset_left = 80.0
+offset_top = 60.0
+offset_right = 153.0
+offset_bottom = 86.0
+text = "0"
 horizontal_alignment = 1
 
 [node name="DropTimer" type="Timer" parent="."]
@@ -82,5 +98,15 @@ collision_layer = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StopLeft"]
 shape = SubResource("RectangleShape2D_40rh3")
 
+[node name="StopRight" type="Area2D" parent="."]
+position = Vector2(827, 56)
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StopRight"]
+shape = SubResource("RectangleShape2D_40rh3")
+
 [connection signal="timeout" from="DropTimer" to="." method="_on_drop_timer_timeout"]
 [connection signal="body_entered" from="StopLeft" to="." method="_on_stop_left_body_entered"]
+[connection signal="body_exited" from="StopLeft" to="." method="_on_stop_left_body_exited"]
+[connection signal="body_entered" from="StopRight" to="." method="_on_stop_right_body_entered"]
+[connection signal="body_exited" from="StopRight" to="." method="_on_stop_right_body_exited"]

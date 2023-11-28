@@ -84,9 +84,21 @@ func _on_orb_combination(colour, orb1, orb2):
 	remove_child(orb2)
 	add_child(combined_orb)
 
+#TODO: skrive ferdig stop hver vei
 func _on_stop_left_body_entered(body):
 	body.stop_left = true
 
+
+func _on_stop_right_body_entered(body):
+	body.stop_right = true
+
+
+func _on_stop_left_body_exited(body):
+	body.stop_left = false
+
+
+func _on_stop_right_body_exited(body):
+	body.stop_right = false
 
 func _on_drop_timer_timeout():
 	_new_orb()
