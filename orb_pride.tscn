@@ -7,6 +7,7 @@
 radius = 151.0
 
 [node name="OrbPride" type="RigidBody2D" groups=["orbs", "pride"]]
+mass = 11.25
 max_contacts_reported = 6
 contact_monitor = true
 can_sleep = false

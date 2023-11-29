@@ -11,9 +11,10 @@ extends CanvasLayer
 var round_count = 0
 var end_orbs = []
 var score = 0
-
+var current_combination = []
 
 func _ready():
+	$FillLine.self_modulate = Color(1, 1, 1, 1)
 	var start_orb = red_orb_scene.instantiate()
 	start_orb.position = $PlacementMarker.position
 	start_orb.gravity_scale = 0
@@ -68,7 +69,14 @@ func _on_orb_dropped():
 	$DropTimer.start()
 
 func _on_orb_combination(colour, orb1, orb2):
+	if !current_combination.is_empty():
+		pass
+	current_combination.push_front(orb1)
+	current_combination.push_front(orb2)
 	var combined_orb
+	if orb1.movable or orb2.movable:
+		_game_over("Knocked yourself out!")
+	var temp_vector = orb1.position
 	if colour == "orange":
 		combined_orb = orange_orb_scene.instantiate()
 	elif colour == "yellow":
@@ -81,12 +89,11 @@ func _on_orb_combination(colour, orb1, orb2):
 		combined_orb = violet_orb_scene.instantiate()
 	elif colour == "pride":
 		combined_orb = pride_orb_scene.instantiate()
-	combined_orb.position = orb1.position
-	if orb1.movable or orb2.movable:
-		_game_over("Knocked yourself out!")
+	combined_orb.position = temp_vector
+	add_child(combined_orb)
+	current_combination.clear()
 	remove_child(orb1)
 	remove_child(orb2)
-	add_child(combined_orb)
 
 func _increase_round():
 	round_count += 1
@@ -129,11 +136,12 @@ func _on_out_of_bounds_body_entered(_body):
 func _on_full_up_body_entered(body):
 	if body.is_in_group("orbs") and !body.movable and $FullUpTimer.is_stopped():
 		$FullUpTimer.start()
-
+	$FillLine.self_modulate = Color(1, 0.02, 0.02, 1)
 
 func _on_full_up_body_exited(_body):
 	if !$FullUpTimer.is_stopped():
 		$FullUpTimer.stop()
+	$FillLine.self_modulate = Color(1, 1, 1, 1)
 
 
 func _on_full_up_timer_timeout():

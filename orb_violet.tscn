@@ -7,6 +7,7 @@
 radius = 125.0
 
 [node name="OrbViolet" type="RigidBody2D" groups=["orbs", "violet"]]
+mass = 7.5
 max_contacts_reported = 6
 contact_monitor = true
 can_sleep = false
