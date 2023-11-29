@@ -8,6 +8,10 @@ extends CanvasLayer
 @export var violet_orb_scene: PackedScene
 @export var pride_orb_scene: PackedScene
 
+var round_count = 0
+var end_orbs = []
+var score = 0
+
 
 func _ready():
 	var start_orb = red_orb_scene.instantiate()
@@ -16,9 +20,6 @@ func _ready():
 	add_child(start_orb)
 	start_orb.movable = true
 	_random_next_orb()
-
-#func _process(delta):
-	#TODO: make drop function
 
 func _random_next_orb():
 	var random_num = randi_range(1, 3)
@@ -33,6 +34,7 @@ func _random_next_orb():
 	temp_next.gravity_scale = 0
 	temp_next.movable = false
 	temp_next.is_next = true
+	_increase_round()
 	add_child(temp_next)
 
 func _new_orb():
@@ -80,11 +82,28 @@ func _on_orb_combination(colour, orb1, orb2):
 	elif colour == "pride":
 		combined_orb = pride_orb_scene.instantiate()
 	combined_orb.position = orb1.position
+	if orb1.movable or orb2.movable:
+		_game_over("Knocked yourself out!")
 	remove_child(orb1)
 	remove_child(orb2)
 	add_child(combined_orb)
 
-#TODO: skrive ferdig stop hver vei
+func _increase_round():
+	round_count += 1
+	$RoundNumberLabel.text = str(round_count)
+
+func _game_over(message):
+	$OverMessageLabel.text = message
+	for child in get_children():
+		if child.is_in_group("orbs"):
+			if child.movable or child.is_next:
+				remove_child(child)
+			end_orbs.push_front(child)
+	_calculate_score()
+
+func _calculate_score():
+	pass #TODO run through end_orbs[] and calculate score
+
 func _on_stop_left_body_entered(body):
 	body.stop_left = true
 
@@ -102,3 +121,20 @@ func _on_stop_right_body_exited(body):
 
 func _on_drop_timer_timeout():
 	_new_orb()
+
+func _on_out_of_bounds_body_entered(_body):
+	_game_over("Orb fell out of the world!")
+
+
+func _on_full_up_body_entered(body):
+	if body.is_in_group("orbs") and !body.movable and $FullUpTimer.is_stopped():
+		$FullUpTimer.start()
+
+
+func _on_full_up_body_exited(_body):
+	if !$FullUpTimer.is_stopped():
+		$FullUpTimer.stop()
+
+
+func _on_full_up_timer_timeout():
+	_game_over("Box is full!")
