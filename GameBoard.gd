@@ -35,7 +35,7 @@ func new_game():
 
 func _random_next_orb():
 	if over:
-		pass
+		return
 	var random_num = randi_range(1, 3)
 	var temp_next
 	if random_num == 1:
@@ -119,7 +119,8 @@ func _game_over(message):
 		if child.is_in_group("orbs"):
 			if child.movable or child.is_next:
 				remove_child(child)
-			end_orbs.push_front(child)
+			else:
+				end_orbs.push_front(child)
 	_calculate_score()
 
 func _calculate_score():
@@ -146,6 +147,8 @@ func _calculate_score():
 	$NewGameButton.visible = true
 
 func clear_game():
+	end_orbs.clear()
+	$OverMessageLabel.text = ""
 	for child in get_children():
 		if child.is_in_group("orbs"):
 			remove_child(child)
