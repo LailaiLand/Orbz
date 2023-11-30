@@ -12,8 +12,19 @@ var round_count = 0
 var end_orbs = []
 var score = 0
 var current_combination = []
+var over = false
+var high_score = 0
 
-func _ready():
+#func _ready():
+#	new_game()
+
+func new_game():
+	clear_game()
+	over = false
+	if score != 0:
+		$ScoreMessageLabel.text = "Previous Score:"
+	check_high_score()
+	score = 0
 	$FillLine.self_modulate = Color(1, 1, 1, 1)
 	var start_orb = red_orb_scene.instantiate()
 	start_orb.position = $PlacementMarker.position
@@ -23,6 +34,8 @@ func _ready():
 	_random_next_orb()
 
 func _random_next_orb():
+	if over:
+		pass
 	var random_num = randi_range(1, 3)
 	var temp_next
 	if random_num == 1:
@@ -100,6 +113,7 @@ func _increase_round():
 	$RoundNumberLabel.text = str(round_count)
 
 func _game_over(message):
+	over = true
 	$OverMessageLabel.text = message
 	for child in get_children():
 		if child.is_in_group("orbs"):
@@ -109,7 +123,42 @@ func _game_over(message):
 	_calculate_score()
 
 func _calculate_score():
-	pass #TODO run through end_orbs[] and calculate score
+	for orb in end_orbs:
+		if orb.is_in_group("red"):
+			score += 1
+		elif orb.is_in_group("orange"):
+			score += 2
+		elif orb.is_in_group("yellow"):
+			score += 4
+		elif orb.is_in_group("green"):
+			score += 8
+		elif orb.is_in_group("indigo"):
+			score += 16
+		elif orb.is_in_group("violet"):
+			score += 32
+		elif orb.is_in_group("pride"):
+			score += 64
+	if score > high_score:
+		$ScoreMessageLabel.text = "New High Score!"
+	else:
+		$ScoreMessageLabel.text = "Score:"
+	$ScoreNumberLabel.text = str(score)
+	$NewGameButton.visible = true
+
+func clear_game():
+	for child in get_children():
+		if child.is_in_group("orbs"):
+			remove_child(child)
+	round_count = 0
+	$NewGameButton.visible = false
+
+func check_high_score():
+	if score != 0:
+		if score > high_score:
+			high_score = score
+		$HighScoreMessageLabel.text = "High Score:"
+		$HighScoreNumberLabel.text = str(high_score)
+	
 
 func _on_stop_left_body_entered(body):
 	body.stop_left = true
@@ -146,3 +195,7 @@ func _on_full_up_body_exited(_body):
 
 func _on_full_up_timer_timeout():
 	_game_over("Box is full!")
+
+
+func _on_new_game_button_pressed():
+	new_game()

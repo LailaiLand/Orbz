@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://c0lnmqnryw0yu"]
+[gd_scene load_steps=12 format=3 uid="uid://c0lnmqnryw0yu"]
 
 [ext_resource type="Script" path="res://GameBoard.gd" id="1_52xhi"]
 [ext_resource type="PackedScene" uid="uid://gxpf67fi4v1u" path="res://orb_red.tscn" id="2_dal3a"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dw70p86jt1okb" path="res://orb_indigo.tscn" id="6_gli5h"]
 [ext_resource type="PackedScene" uid="uid://bjct3m3rr60ve" path="res://orb_violet.tscn" id="7_xxegl"]
 [ext_resource type="PackedScene" uid="uid://dc0pv4ic6ybm7" path="res://orb_pride.tscn" id="8_ty5k7"]
+[ext_resource type="Texture2D" uid="uid://bbvavujrevhh7" path="res://Art/PNG/Scoring.png" id="9_q4562"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_40rh3"]
 size = Vector2(20, 111)
@@ -132,6 +133,34 @@ offset_bottom = 184.0
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
+
+[node name="ScoreMessageLabel" type="Label" parent="."]
+offset_left = 56.0
+offset_top = 208.0
+offset_right = 129.0
+offset_bottom = 234.0
+horizontal_alignment = 1
+
+[node name="ScoreNumberLabel" type="Label" parent="."]
+offset_left = 56.0
+offset_top = 228.0
+offset_right = 129.0
+offset_bottom = 254.0
+horizontal_alignment = 1
+
+[node name="HighScoreMessageLabel" type="Label" parent="."]
+offset_left = 56.0
+offset_top = 296.0
+offset_right = 129.0
+offset_bottom = 322.0
+horizontal_alignment = 1
+
+[node name="HighScoreNumberLabel" type="Label" parent="."]
+offset_left = 56.0
+offset_top = 316.0
+offset_right = 129.0
+offset_bottom = 342.0
+horizontal_alignment = 1
 
 [node name="FillLine" type="CanvasGroup" parent="."]
 position = Vector2(8, 0)
@@ -268,6 +297,19 @@ offset_top = 104.0
 offset_right = 880.0
 offset_bottom = 112.0
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1040, 472)
+scale = Vector2(0.564, 0.593385)
+texture = ExtResource("9_q4562")
+
+[node name="NewGameButton" type="Button" parent="."]
+z_index = 1
+offset_left = 448.0
+offset_top = 312.0
+offset_right = 640.0
+offset_bottom = 360.0
+text = "New Game"
+
 [connection signal="timeout" from="DropTimer" to="." method="_on_drop_timer_timeout"]
 [connection signal="body_entered" from="StopLeft" to="." method="_on_stop_left_body_entered"]
 [connection signal="body_exited" from="StopLeft" to="." method="_on_stop_left_body_exited"]
@@ -277,3 +319,4 @@ offset_bottom = 112.0
 [connection signal="body_entered" from="FullUp" to="." method="_on_full_up_body_entered"]
 [connection signal="body_exited" from="FullUp" to="." method="_on_full_up_body_exited"]
 [connection signal="timeout" from="FullUpTimer" to="." method="_on_full_up_timer_timeout"]
+[connection signal="pressed" from="NewGameButton" to="." method="_on_new_game_button_pressed"]
